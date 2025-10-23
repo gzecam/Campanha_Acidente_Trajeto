@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acidentes de Trajeto: Causas e Prevenção</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header-logos {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            z-index: 100;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-left, .logo-right {
+            height: 90px;
+            width: auto;
+            max-width: 225px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            padding-top: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-scroll {
+            background: white;
+            color: #f6a01a;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .btn-scroll:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #f6a01a;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .cause-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #f6a01a;
+            transition: all 0.3s ease;
+        }
+
+        .cause-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateX(10px);
+        }
+
+        .cause-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .cause-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #f6a01a;
+            margin-bottom: 1rem;
+        }
+
+        .tips-container {
+            background: linear-gradient(135deg, #ffd89b 0%, #ff9a56 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            color: #1a1a1a;
+            margin: 3rem 0;
+        }
+
+        .tips-container h2 {
+            color: #1a1a1a;
+        }
+
+        .tips-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .tips-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tips-list li:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(10px);
+        }
+
+        .tips-list li::before {
+            content: '✓';
+            margin-right: 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .quiz-container {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1.5rem;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #f6a01a;
+            transform: scale(1.02);
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .quiz-option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .header-logos {
+                padding: 1rem;
+            }
+
+            .logo-left, .logo-right {
+                height: 75px;
+                max-width: 150px;
+            }
+
+            .logo-container {
+                padding: 0.3rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-logos">
+        <div class="logo-container">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGvYO00-rI-S8p84oJ4Oh07znpQNEMvNMhqA&s" alt="Logo Esquerda" class="logo-left" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:white>Logo 1</span>'">
+        </div>
+        <div class="logo-container">
+            <img src="https://iateclubedebrasilia.com.br/wp-content/uploads/2023/08/logo_cipa.png" alt="Logo CIPA" class="logo-right" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:white>CIPA</span>'">
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>⚠️ Acidentes de Trajeto</h1>
+            <p class="subtitle">Conheça as causas e aprenda a se proteger</p>
+            <button class="btn-scroll" onclick="scrollToContent()">Saiba Mais</button>
+        </div>
+    </div>
+
+    <div class="container" id="content">
+        <div class="section">
+            <h2>📊 Dados Importantes</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">30%</div>
+                    <div class="stat-label">dos acidentes de trabalho ocorrem no trajeto</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">envolvem veículos motorizados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">ocorrem em horários de pico</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Principais Causas</h2>
+            <div class="causes-grid">
+                <div class="cause-card">
+                    <div class="cause-icon">🚗</div>
+                    <div class="cause-title">Excesso de Velocidade</div>
+                    <p>Dirigir acima do limite aumenta o risco de acidentes graves e reduz o tempo de reação.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">📱</div>
+                    <div class="cause-title">Distração</div>
+                    <p>Uso de celular, conversas e outros fatores que tiram a atenção do trânsito.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">😴</div>
+                    <div class="cause-title">Fadiga e Sonolência</div>
+                    <p>Dormir mal ou acordar muito cedo compromete reflexos e atenção.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">🌧️</div>
+                    <div class="cause-title">Condições Climáticas</div>
+                    <p>Chuva, neblina e pista molhada exigem cuidados redobrados.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">⏰</div>
+                    <div class="cause-title">Pressa</div>
+                    <p>Sair atrasado leva a decisões arriscadas no trânsito.</p>
+                </div>
+                <div class="cause-card">
+                    <div class="cause-icon">🛠️</div>
+                    <div class="cause-title">Má Conservação</div>
+                    <p>Veículos sem manutenção adequada representam perigo constante.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="tips-container">
+                <h2>💡 Dicas de Prevenção</h2>
+                <ul class="tips-list">
+                    <li>Saia de casa com antecedência para evitar pressa</li>
+                    <li>Durma bem e descanse adequadamente</li>
+                    <li>Mantenha seu veículo sempre revisado</li>
+                    <li>Respeite os limites de velocidade</li>
+                    <li>Não use o celular enquanto dirige ou anda</li>
+                    <li>Use sempre o cinto de segurança</li>
+                    <li>Atenção redobrada em dias de chuva</li>
+                    <li>Planeje rotas alternativas mais seguras</li>
+                    <li>Mantenha distância segura de outros veículos</li>
+                    <li>Se usar transporte público, aguarde em local seguro</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Teste Seus Conhecimentos</h2>
+            <div class="quiz-container">
+                <div class="quiz-question">Qual é a principal causa de acidentes de trajeto?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">
+                        Problemas mecânicos no veículo
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">
+                        Falta de atenção e excesso de velocidade
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">
+                        Condições climáticas adversas
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">
+                        Problemas na sinalização
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Lembre-se:</strong> Sua segurança no trajeto é responsabilidade sua!</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">Campanha de Conscientização © 2025</p>
+    </div>
+
+    <script>
+        function scrollToContent() {
+            document.getElementById('content').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function checkAnswer(element, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                setTimeout(() => {
+                    alert('✅ Correto! Falta de atenção e excesso de velocidade são as principais causas de acidentes de trajeto.');
+                }, 300);
+            } else {
+                element.classList.add('incorrect');
+                setTimeout(() => {
+                    alert('❌ Não é a resposta correta. A principal causa são a falta de atenção e o excesso de velocidade.');
+                }, 300);
+            }
+        }
+
+        // Animação de entrada dos cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-card, .cause-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
